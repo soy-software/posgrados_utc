@@ -21,6 +21,12 @@ class CreateAdmisionsTable extends Migration
             $table->decimal('ensayo',8,2)->nullable();
             $table->enum('estado',['Aprobado','Reprobado'])->default('Reprobado');
 
+            // para la matricula
+            $table->enum('estado_factura',['Validado','Sin validar'])->default('Sin validar');
+            $table->decimal('valor_factura',19,2)->nullable();
+            $table->string('factura')->nullable();
+            $table->string('comprobante')->nullable();
+
             $table->unsignedBigInteger('cohorte_id');
             $table->foreign('cohorte_id')->references('id')->on('cohortes');
             
@@ -30,6 +36,8 @@ class CreateAdmisionsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             
+            
+
             $table->bigInteger('creado_x')->nullable();
             $table->bigInteger('editado_x')->nullable();
         });

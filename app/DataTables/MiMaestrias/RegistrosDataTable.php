@@ -55,7 +55,7 @@ class RegistrosDataTable extends DataTable
                     return view('validarRegistros.foto',['reg'=>$reg])->render();
                 })
                 ->addColumn('action', function($reg){
-                    return '';
+                    return view('misMaestrias.registroAccion',['reg'=>$reg]);
                 })
                 ->rawColumns(['foto','action','estado']);
     }
@@ -105,7 +105,7 @@ class RegistrosDataTable extends DataTable
             Column::make('cohorte_id')->title('Email'),
             Column::make('factura')->title('Factura'),
             Column::make('estado'),
-            Column::make('valor')->title('Valor'),
+            Column::make('valor')->title('Valor registro'),
             Column::make('foto')->title('Comprobante')->searchable(false),
             Column::make('created_at')->title('Fecha de registro'),
         ];

@@ -9,10 +9,13 @@ use App\DataTables\MiMaestriasDataTable;
 use App\Models\Admision;
 use App\Models\Cohorte;
 use App\Models\Entrevista;
+use App\Models\Inscripcion;
+use App\Models\Registro;
+use App\Notifications\NotificarAdmision;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use PDF;
 class MisMaestrias extends Controller
 {
     public function index(MiMaestriasDataTable $dataTable)
@@ -134,6 +137,9 @@ class MisMaestrias extends Controller
         try {
             DB::beginTransaction();
             $admision->estado=$request->estado;
+            if($request->estado=='Aprobado'){
+                $admision->valor_factura=$admision->cohorte->valor_matricula;
+            }
             $admision->editado_x=Auth::id();
             $admision->save();
             DB::commit();
@@ -142,9 +148,23 @@ class MisMaestrias extends Controller
             DB::rollback();
             $request->session()->flash('info','Admisión no guardado, vuelva intentar');
         }
+        if($request->notificar){
+            $admision->user->notify(new NotificarAdmision($admision));
+        }
         return redirect()->route('miCohorteAdmisionEntrevistaEnsayo',$request->admision);
 
     }
     
+
+    public function verHojaVidaInscripcionMisMaestrias($idInscri)
+    {
+        $inscri=Inscripcion::findOrFail($idInscri);
+        $data = array('user' => $inscri->user);
+        $pdf = PDF::loadView('usuarios.perfil.hojaVida', $data)
+            ->setOption('header-html', view('estaticas.header'))
+            ->setOption('footer-html', view('estaticas.footer'))
+            ->setOption('margin-bottom', 10);
+        return $pdf->inline('Hoja de vida.pdf');
+    }
     
 }

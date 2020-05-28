@@ -50,7 +50,7 @@ class InscritosDataTable extends DataTable
                 return $inscri->created_at.' '.$inscri->created_at->diffForHumans();
             })
             ->addColumn('action', function($inscri){
-                return '';
+                return view('misMaestrias.accionIncritos',['inscri'=>$inscri])->render();
             });
     }
 

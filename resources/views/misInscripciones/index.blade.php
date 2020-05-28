@@ -1,11 +1,11 @@
-@extends('layouts.app',['title'=>'Mis registros'])
-@section('breadcrumbs', Breadcrumbs::render('misRegistros'))
+@extends('layouts.app',['title'=>'Mis inscripciones'])
+@section('breadcrumbs', Breadcrumbs::render('misInscripciones'))
 @section('content')
 
-    @if (count($registros)>0)
+    @if (count($inscripciones)>0)
         <div class="card">
             <div class="card-header">
-                Mis registros
+                Mis inscripciones
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -14,24 +14,16 @@
                           <tr>
                             <th scope="col">Acción</th>
                             <th scope="col">Maestría</th>
-                            <th scope="col">Estado de factura</th>
-                            <th scope="col">Número de factura</th>
-                            <th scope="col">Comprobante</th>
-                            <th scope="col">Valor de registro</th>
-                            <th scope="col">Fecha de registro</th>
+                            <th scope="col">Descripción de la inscripción</th>
+                            <th scope="col">Fecha de inscripción</th>
                           </tr>
                         </thead>
                         <tbody>
-                          @foreach ($registros as $reg)
+                          @foreach ($inscripciones as $reg)
                           <tr>
                             <th scope="row">
                                 <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                    @can('subirComprobanteRegistro', $reg)
-                                    <button type="button" onclick="location.href='{{ route('subirComprobanteRegistro',$reg->id) }}'" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Subir comprobante de registro">
-                                        <i class="fas fa-upload"></i>
-                                    </button>
-                                    @endcan
-                                    <button type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Ver formulario de registro" data-toggle="modal" data-title="Formulario de registro en {{ $reg->cohorte->maestria->nombre }} COHORTE {{ $reg->cohorte->numero }}" data-urlver="{{ route('descargarFormularioRegistroPdf',$reg->id) }}" data-url="{{ route('verFormularioRegistroPdf',$reg->id) }}" onclick="verFormulario(this);">
+                                    <button type="button" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Formulario de inscripción" data-toggle="modal" data-title="Formulario de inscripción en {{ $reg->cohorte->maestria->nombre }} COHORTE {{ $reg->cohorte->numero }}"  data-url="{{ route('misInscripcionesVerFormulario',$reg->id) }}" onclick="verFormulario(this);">
                                         <i class="far fa-address-book"></i>
                                     </button>
                                    
@@ -41,24 +33,9 @@
                                 {{ $reg->cohorte->maestria->nombre }} COHORTE {{ $reg->cohorte->numero }}
                             </td>
                             <td>
-                                <span class="badge badge-pill badge-{{ $reg->estado=='Validado'?'success':'danger' }}">{{ $reg->estado }}</span>
+                                {{ $reg->descripcio??'N/A' }}
                             </td>
-                            <td>
-                                {{ $reg->factura }}
-                            </td>
-                            <td class="text-center">
-                                @if (Storage::exists($reg->foto))
-                                <a href="{{ Storage::url($reg->foto) }}" class="my-0 mb-0 mt-0" data-toggle="lightbox" data-title="Comprobante de registro" data-footer="{{ $reg->cohorte->maestria->nombre }} COHORTE {{ $reg->cohorte->numero }}">
-                                    <img src="{{ Storage::url($reg->foto) }}" class="img-fluid my-0 mb-0 mt-0" width="30px">
-                                </a>
-                                @else
-                                <span class="badge badge-pill badge-info">Sin subir</span>    
-                                @endif
-                                
-                            </td>
-                            <td>
-                                {{ $reg->cohorte->valor_inscripcion }}
-                            </td>
+                           
                             <td>
                                 {{ $reg->created_at }}
                                 <small>{{ $reg->created_at->diffForHumans() }}</small>
@@ -89,7 +66,7 @@
                 </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="" id="descargarRegistro" class="btn btn-primary btn-sm">Descargar</a>
+                    
                     <button type="button" class="btn btn-dark btn-sm" data-dismiss="modal">Cerrar</button>
                 </div>
                 </div>
@@ -98,18 +75,17 @@
 
     @else
         <div class="alert alert-info" role="alert">
-            <strong>No tienes registros</strong>
+            <strong>No tienes inscripciones</strong>
         </div>
     @endif
 
     @prepend('scriptsHeader')
-        <link rel="stylesheet" href="{{ asset('librarys/lightbox/ekko-lightbox.css') }}">
-        <script src="{{ asset('librarys/lightbox/ekko-lightbox.min.js') }}"></script>
+        
     @endprepend
 
     @push('scriptsFooter')
         <script>
-            $('#misRegistros').addClass('active')
+            $('#misInscripciones').addClass('active')
             $(document).on('click', '[data-toggle="lightbox"]', function(event) {
                 event.preventDefault();
                 $(this).ekkoLightbox();
@@ -118,13 +94,13 @@
             function verFormulario(arg){
                 $('#centralModalSm').modal('show');
                 $('#iframeRegistro').attr('src',$(arg).data('url'));
-                $("#descargarRegistro").attr("href", $(arg).data('urlver'));
+                
                 $('#myModalLabel').html($(arg).data('title'));
             }
 
             $('#centralModalSm').on('hidden.bs.modal', function (e) {
                 $('#iframeRegistro').attr('src',"");
-                $("#descargarRegistro").attr("href", "");
+                
                 $('#myModalLabel').html('');
             })
 

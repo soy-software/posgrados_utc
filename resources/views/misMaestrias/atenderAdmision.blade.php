@@ -112,7 +112,7 @@
             </div>
         </form>
 
-        <form action="{{ route('miCohorteAdmisionAprobarReprobar') }}" method="POST">
+        <form action="{{ route('miCohorteAdmisionAprobarReprobar') }}" method="POST" id="formAprobarReprobar">
             @csrf
             <input type="hidden" name="admision" id="" value="{{ $admi->id }}">
             <div class="card">
@@ -127,11 +127,16 @@
                             <option value="Aprobado" {{ $admi->estado=='Aprobado'?'selected':'' }}>Aprobado</option>
                             <option value="Reprobado" {{ $admi->estado=='Reprobado'?'selected':'' }}>Reprobado</option>
                         </select>
+                        
                         @error('estado')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <div class="custom-control custom-checkbox mt-1">
+                            <input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="notificar">
+                            <label class="custom-control-label" for="defaultUnchecked">Enviar notificación subir comprbante para matrícula a: <i>{{ $admi->user->email }}</i></label>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer text-muted">
@@ -142,10 +147,62 @@
     </div>
 </div>
 
-
+@prepend('scriptsHeader')
+    
+    <script src="{{ asset('librarys/validate/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('librarys/validate/localization/messages_es.min.js') }}"></script>
+    {{-- confirm --}}
+    <link rel="stylesheet" href="{{ asset('librarys/jquery-confirm/dist/jquery-confirm.min.css') }}">
+    <script src="{{ asset('librarys/jquery-confirm/dist/jquery-confirm.min.js') }}"></script>
+    {{-- blockui --}}
+    <script src="{{ asset('librarys/jquery.blockUI.js') }}"></script>
+@endprepend
 @push('scriptsFooter')
     <script>
-        $('#menuMisMaestrias').addClass('active')
+        $('#menuMisMaestrias').addClass('active');
+        $("#formAprobarReprobar").validate({
+            submitHandler: function(form) {
+                $.confirm({
+                    title: 'Confirmar aprobar/reprobar Admisión!',
+                    content: "Declaro haber leído y aceptado APROBAR/REPROBAR, admisión de {{ $admi->user->apellidos_nombres }}",
+                    theme: 'modern',
+                    type:'blue',
+                    icon:'fas fa-user-check',
+                    closeIcon:true,
+                    buttons: {
+                        confirmar: {
+                            btnClass: 'btn-blue',
+                            action: function(){
+                                $.blockUI({ message: '<h1>  <i class="fas fa-circle-notch fa-spin"></i> Por favor espera, sólo un momento...</h1>' });
+                                form.submit();
+                            }
+                        },
+                        cancelar: {
+                            
+                            action: function(){
+
+                            }
+                        }
+                    }
+                });
+                
+            },
+            errorElement: "strong",
+            errorPlacement: function ( error, element ) {
+                error.addClass( "invalid-feedback" );
+                if ( element.prop( "type" ) === "checkbox" ) {
+                    error.insertAfter( element.next( "label" ) );
+                } else {
+                    error.insertAfter( element );
+                }
+            },
+            highlight: function ( element, errorClass, validClass ) {
+                $( element ).addClass( "is-invalid" ).removeClass( "is-valid" );
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $( element ).addClass( "is-valid" ).removeClass( "is-invalid" );
+            }
+        });
     </script>
 @endpush
 @endsection

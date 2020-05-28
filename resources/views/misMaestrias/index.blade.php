@@ -12,6 +12,8 @@
     </div>
 </div>
 
+
+
 @prepend('scriptsHeader')
     <link rel="stylesheet" href="{{ asset('librarys/DataTables/datatables.min.css') }}">
     <script src="{{ asset('librarys/DataTables/datatables.min.js') }}"></script>
@@ -23,7 +25,7 @@
 
 @push('scriptsFooter')
     <script>
-        $('#menuMisMaestrias').addClass('active')
+        $('#menuMisMaestrias').addClass('active');
     </script>
      {!! $dataTable->scripts() !!}
 @endpush

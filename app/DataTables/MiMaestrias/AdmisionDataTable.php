@@ -51,10 +51,24 @@ class AdmisionDataTable extends DataTable
             ->editColumn('updated_at',function($adm){
                 return number_format($adm->examen+$adm->entrevista+$adm->ensayo,2);
             })
-
+            ->editColumn('estado_factura',function($adm){
+                if($adm->estado_factura=='Validado'){
+                    return '<span class="badge badge-pill badge-success">'.$adm->estado_factura.'</span>';
+                }else{
+                    return '<span class="badge badge-pill badge-danger">'.$adm->estado_factura.'</span>';
+                }
+            })
+            ->editColumn('estado',function($adm){
+                if($adm->estado=='Aprobado'){
+                    return '<span class="badge badge-pill badge-success">'.$adm->estado.'</span>';
+                }else{
+                    return '<span class="badge badge-pill badge-danger">'.$adm->estado.'</span>';
+                }
+                
+            })
             ->addColumn('action', function($adm){
                 return view('misMaestrias.admisionAccion',['adm'=>$adm])->render();
-            });
+            })->rawColumns(['action','estado','estado_factura']);
     }
 
     /**
@@ -99,7 +113,9 @@ class AdmisionDataTable extends DataTable
             Column::make('inscripcion_id')->title('Identificación'),
             Column::make('user_id')->title('Postulante'),
             Column::make('cohorte_id')->title('Email'),
-            Column::make('estado')->title('Estado'),
+            Column::make('estado')->title('Estado admisión'),
+            Column::make('estado_factura')->title('Estado factura'),
+            Column::make('valor_factura')->title('Valor matrícula'),
             Column::make('examen'),
             Column::make('entrevista'),
             Column::make('ensayo'),

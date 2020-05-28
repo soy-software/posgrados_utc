@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\Models\Admision;
 use App\Models\Cohorte;
 use App\Models\CohorteCoordinador;
+use App\Models\Inscripcion;
 use App\Models\Registro;
 use App\Models\User\InformacionAcademica;
 use App\Models\User\InformacionLaboral;
@@ -60,6 +62,18 @@ class User extends Authenticatable implements MustVerifyEmail
     public function registros()
     {
         return $this->hasMany(Registro::class);
+    }
+
+    // @deivid, un usuario tiene varisa incripciones
+    public function inscripciones()
+    {
+        return $this->hasMany(Inscripcion::class);
+    }
+
+    // @deivid, un usuario tiene varisa incripciones
+    public function admisiones()
+    {
+        return $this->hasMany(Admision::class);
     }
     
     // @deivid un usuario tiene un informacion laboral

@@ -25,4 +25,10 @@ class Admision extends Model
         ->withPivot('nota','opcion','id');
     }
 
+    // @deivid, una admision pertenece a una inscripcion
+    public function inscripcion()
+    {
+        return $this->belongsTo(Inscripcion::class);
+    }
+
 }

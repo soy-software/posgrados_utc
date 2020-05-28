@@ -28,7 +28,8 @@ class Registros extends Controller
     public function guardarComprobanteRegistro(Request $request)
     {
         $request->validate([
-            'foto'=>'mimes:png,jpg,jpeg'
+            'foto'=>'mimes:png,jpg,jpeg',
+            'registro'=>'required|exists:registros,id'
         ]);
         $registro=Registro::findOrFail($request->registro);
         $this->authorize('subirComprobanteRegistro',$registro);

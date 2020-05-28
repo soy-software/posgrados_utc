@@ -23,9 +23,9 @@
             <div class="sidebar-user-material-body">
                 <div class="card-body text-center">
                     @if (Storage::exists(Auth::user()->foto))
-                    <img src="{{ Storage::url(Auth::user()->foto) }}" class="img-fluid rounded-circle shadow-1 mb-3" width="80" height="80" alt="">
+                    <img src="{{ Storage::url(Auth::user()->foto) }}" class="img-fluid rounded-circle shadow-1 mb-3 border border-white" width="80" height="80" alt="">
                     @else
-                    <img src="{{ asset('images/demo/users/face6.jpg') }}" class="img-fluid rounded-circle shadow-1 mb-3" width="80" height="80" alt="">    
+                    <img src="{{ asset('images/demo/users/face6.jpg') }}" class="img-fluid rounded-circle shadow-1 mb-3 border border-white" width="80" height="80" alt="">    
                     @endif
                     
                     
@@ -78,15 +78,31 @@
                     </a>
                 </li>
 
-                @can('tieneRegistros', App\Models\Registro::class)
-                
+                @if (count(Auth::user()->registros)>0)
                 <li class="nav-item">
                     <a href="{{ route('misRegistros') }}" class="nav-link" id="misRegistros">
                         <i class="fas fa-user-edit"></i> <span>Mis registros</span>
                     </a>
                 </li>
-                
-                @endcan
+                @endif
+
+
+                @if (count(Auth::user()->inscripciones)>0)
+                <li class="nav-item">
+                    <a href="{{ route('misInscripciones') }}" class="nav-link" id="misInscripciones">
+                        <i class="fas fa-clipboard-check"></i> <span>Mis inscripciones</span>
+                    </a>
+                </li>
+                @endif
+
+                @if (count(Auth::user()->admisiones)>0)
+                <li class="nav-item">
+                    <a href="{{ route('misAdmisiones') }}" class="nav-link" id="misAdmisiones">
+                        <i class="fas fa-network-wired"></i> <span>Mis admisiones</span>
+                    </a>
+                </li>
+                @endif
+
 
 
                 <li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Gestión</div> <i class="icon-menu" title="Gestión"></i></li>

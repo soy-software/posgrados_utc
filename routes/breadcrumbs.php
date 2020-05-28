@@ -133,6 +133,13 @@ Breadcrumbs::for('subirComprobanteRegistro', function ($trail,$reg) {
     $trail->push('Subir comprobante de registro', route('subirComprobanteRegistro',$reg->id));
 });
 
+// @deivid, mis inscripciones
+Breadcrumbs::for('misInscripciones', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Mis inscripciones', route('misInscripciones'));
+});
+
+
 // @deivid, perfil de usuario
 Breadcrumbs::for('miperfil', function ($trail) {
     $trail->parent('home');
@@ -184,7 +191,7 @@ Breadcrumbs::for('bancoPreguntas', function ($trail,$cohorte) {
 // @deivid, banco de preguntas 
 Breadcrumbs::for('admision', function ($trail,$cohorte) {
     $trail->parent('cohortes',$cohorte->maestria);
-    $trail->push('Admisión', route('admision',$cohorte->id));
+    $trail->push('Admisión COHORTE '.$cohorte->numero, route('admision',$cohorte->id));
 });
 
 

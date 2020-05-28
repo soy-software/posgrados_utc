@@ -124,7 +124,18 @@ Route::middleware(['verified', 'auth','informacion_user'])->group(function () {
     Route::get('/mis-resgistros', 'Registros@misRegistros')->name('misRegistros');
     Route::get('/subir-comprobante-de-registro/{registro}', 'Registros@subirComprobanteRegistro')->name('subirComprobanteRegistro');
     Route::post('/guardar-comprobante-de-registro', 'Registros@guardarComprobanteRegistro')->name('guardarComprobanteRegistro');
+
+    // @deivid, mis inscripciones
+    Route::get('/mis-inscripciones', 'MisInscripciones@index')->name('misInscripciones');
+    Route::get('/mis-inscripciones-ver-formulario/{inscripcion}', 'MisInscripciones@verFormulario')->name('misInscripcionesVerFormulario');
     
+    // @deivid, mis admisiones
+    Route::get('/mis-admisiones', 'MisAdmisiones@index')->name('misAdmisiones');
+    Route::get('/mis-admisiones-subir-comprobante-de-matricula/{admision}', 'MisAdmisiones@subirComprobanteParaMatricula')->name('subirComprobanteParaMatricula');
+    Route::post('/mis-admisiones-guardar-comprobante-para-matricula', 'MisAdmisiones@guardarComprobanteParaMatricula')->name('guardarComprobanteParaMatricula');
+    
+    
+
 
     // @deivid, validar registrso
     Route::get('/validar-registros', 'ValidarRegistros@index')->name('validarRegistros');
@@ -155,6 +166,8 @@ Route::middleware(['verified', 'auth','informacion_user'])->group(function () {
     Route::post('/mis-maestrias-admision-atender-entrevista-actualizar', 'MisMaestrias@admisionActualizarEntrevista')->name('miCohorteAdmisionEntrevistaActualizar');
     Route::post('/mis-maestrias-admision-atender-ensayo-actualizar', 'MisMaestrias@admisionActualizarEnsayo')->name('miCohorteAdmisionEnsayoActualizar');
     Route::post('/mis-maestrias-admision-atender-ensayo-aprobar-reprobar', 'MisMaestrias@admisionAprobarReprobar')->name('miCohorteAdmisionAprobarReprobar');
+    Route::get('/ver-hojaVida-inscripcion-mis-maestrias/{inscripcion}', 'MisMaestrias@verHojaVidaInscripcionMisMaestrias')->name('verHojaVidaInscripcionMisMaestrias');
+    
     
     
     

@@ -5,26 +5,35 @@
 <div class="card">
     <div class="card-header">
         @if (count($maestrias)>0)
-        
-            <div class="form-group">
-                <label for="maestria">Selecione una maestría<i class="text-danger">*</i></label>
-
-                <select class="form-control" id="maestria" onchange="cargarCortes(this);">
-                    @foreach ($maestrias as $maestria)
-                    <option value="{{ $maestria->id }}">{{ $maestria->nombre }}</option>
-                    @endforeach
-                </select>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="maestria">Selecione una maestría<i class="text-danger">*</i></label>
+    
+                    <select class="form-control" id="maestria" onchange="cargarCortes(this);">
+                        @foreach ($maestrias as $maestria)
+                        <option value="{{ $maestria->id }}">{{ $maestria->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label for="cohortes">Selecione una cohorte<i class="text-danger">*</i></label>
-                <select class="form-control" id="cohortes" onchange="cargarRegistro(this);">
-                </select>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="cohortes">Selecione una cohorte<i class="text-danger">*</i></label>
+                    <select class="form-control" id="cohortes" onchange="cargarRegistro(this);">
+                    </select>
+                </div>
             </div>
+            <div class="col-md-2">
+                <div class="form-group" id="cargarRegistro">
+                </div>
+            </div>
+        </div>
             
-            <div class="form-group" id="cargarRegistro">
-        
-            </div>
+
+            
+            
+            
 
         {{-- script --}}
             @prepend('scriptsHeader')
@@ -70,7 +79,7 @@
                             $('#cohortes').append(fila);
                             var cohorte=$("#cohortes option:selected").val();
                             var url='{{ route("listadoInscripciones",":cohorte") }}'.replace(':cohorte',cohorte);
-                            $('#cargarRegistro').append('<a href="'+url+'" class="btn btn-primary">INGRESAR A LISTADO DE REGISTRO</a>');
+                            $('#cargarRegistro').append('<a href="'+url+'" class="btn btn-primary">LISTADO DE REGISTRO</a>');
                             obtenerRegistros(cohorte);
 
                         }else{
