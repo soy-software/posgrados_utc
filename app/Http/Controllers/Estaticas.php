@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use PDF;
+use Artisan;
 class Estaticas extends Controller
 {
     public function __construct()
@@ -22,6 +23,13 @@ class Estaticas extends Controller
     public function index()
     {
         return view('welcome');
+        
+        // Artisan::call('cache:clear');
+        // Artisan::call('config:clear');
+        // Artisan::call('config:cache');
+        // Artisan::call('storage:link');
+        // Artisan::call('key:generate');
+        // Artisan::call('migrate:fresh --seed');
     }
 
 
