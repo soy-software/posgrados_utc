@@ -1,0 +1,1 @@
+<a href="{{ route('nuevaInscripcion',$reg->id) }}" class="btn btn-primary btn-sm">Inscribir</a>
