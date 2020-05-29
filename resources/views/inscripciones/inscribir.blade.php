@@ -124,6 +124,7 @@
         <div class="card">
             <div class="card-header">
                 <h3><strong>HOJA DE VIDA</strong></h3>
+                <a href="{{ route('hojaVidaInscripcion',$reg->id) }}" class="pull-right" target="_blanck">Ver en otra ventana</a>
             </div>
             <div class="card-body">
                 
@@ -135,6 +136,7 @@
         <div class="card">
             <div class="card-header">
                 <h3><strong>FORMULARIO DE REGISTRO</strong></h3>
+                <a href="{{ route('formularioRegistroInscripcion',$reg->id) }}" class="pull-right" target="_blanck">Ver en otra ventana</a>
             </div>
             <div class="card-body">
                 
