@@ -68,19 +68,22 @@
           </td>
       </tr>
       <tr>
-          <td colspan="2" style="width: 50%;">
+          <td colspan="{{ $user->tiene_discapacidad=='SI'?'2':'3' }}" style="width: 50%;">
               <strong>Teléfono: </strong> {{ $user->telefono }} <br>
               <strong>Celular: </strong> {{ $user->celular }} <br>
               <strong>Dirección: </strong> {{ $user->direccion }} <br>
               <strong>Latitud:</strong> {{ $user->lat }} <br>
               <strong>Longitud:</strong> {{ $user->lng }}
           </td>
-          <td>
+          @if ($user->tiene_discapacidad=='SI')
+            <td>
               <strong>Tiene discapacidad: </strong> {{ $user->tiene_discapacidad }} <br>
               <strong>Porcentaje discapacidad: </strong> {{ $user->porcentaje_discapacidad }} <br>
               <strong>Tiene carnet conadis: </strong> {{ $user->tiene_carnet_conadis }} <br>
               <strong>Carnet conadis: </strong> {{ $user->porcentaje_carnet_conadis }} <br>
-          </td>
+          </td>    
+          @endif
+          
       </tr>
       <tr>
         <th colspan="3">
@@ -110,9 +113,9 @@
         </td>
       </tr>
       
-      <tr>
+      
         @include('estaticas.detalleBanco')
-      </tr>
+      
     </table>
 
   
