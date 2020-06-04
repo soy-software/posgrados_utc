@@ -156,6 +156,15 @@ Route::middleware(['verified', 'auth','informacion_user'])->group(function () {
     Route::get('/inscripcion-ver/{id}', 'Inscripciones@ver')->name('verInscripcion');
     Route::get('/formulario-inscripcion/{id}', 'Inscripciones@formularioInscripcion')->name('formularioInscripcion');
     Route::post('/inscribir-actualizar', 'Inscripciones@actualizar')->name('actualizarInscripcion');
+
+    // @deivid
+    Route::get('/validar-matriculas', 'ValidarMatriculas@index')->name('validarMatriculas');
+    Route::post('/obtener-cohortes-x-maestria-validar-matricula', 'ValidarMatriculas@obtenerCohortesMaestria')->name('obtenerCohortesMaestriaValidarMatricula');
+    Route::get('/obtener-registros-x-cohorte-matriculas/{cohorte}', 'ValidarMatriculas@obtenerAdmisionesCohorte')->name('obtenerAdmisionesPorCohorteValidarRegistro');
+    Route::post('/guardar-validar-matricula', 'ValidarMatriculas@validarMatricula')->name('guardarValidarMatricula');
+    
+    
+    
     
     // @deivid, mis maestrias
     Route::get('/mis-maestrias', 'MisMaestrias@index')->name('misMaestrias');

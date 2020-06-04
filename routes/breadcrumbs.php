@@ -139,6 +139,28 @@ Breadcrumbs::for('misInscripciones', function ($trail) {
     $trail->push('Mis inscripciones', route('misInscripciones'));
 });
 
+// @deivid, mis admisiones
+Breadcrumbs::for('misAdmisiones', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Mis admisiones', route('misAdmisiones'));
+});
+Breadcrumbs::for('subirComprobanteParaMatricula', function ($trail,$admision) {
+    $trail->parent('misAdmisiones');
+    $trail->push('Subir comprobante de matrícula', route('subirComprobanteParaMatricula',$admision));
+});
+
+
+// @deivid, validar registro
+Breadcrumbs::for('validarRegistros', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Validar registros', route('validarRegistros'));
+});
+
+// @deivid, validar matricula
+Breadcrumbs::for('validarMatriculas', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Validar matriculas', route('validarMatriculas'));
+});
 
 // @deivid, perfil de usuario
 Breadcrumbs::for('miperfil', function ($trail) {

@@ -14,12 +14,16 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user= User::firstOrCreate([
-            'name' => 'vilmer',
-            'email' => 'david.criollo14@gmail.com',
-            'password' => Hash::make('12345678'),
-            'email_verified_at'=>Carbon::now()
-        ]);
+        $email='david.criollo14@gmail.com';
+        $user=User::where('email',$email)->first();
+        if(!$user){
+            $user=new User();
+            $user->name = 'vilmer';
+            $user->email = $email;
+            $user->password = Hash::make('12345678');
+            $user->email_verified_at=Carbon::now();
+            $user->save();
+        }
         $user->assignRole('Administrador');
     }
 }

@@ -1,5 +1,5 @@
-@extends('layouts.app',['title'=>'Validar registros'])
-@section('breadcrumbs', Breadcrumbs::render('validarRegistros'))
+@extends('layouts.app',['title'=>'Validar matriculas'])
+@section('breadcrumbs', Breadcrumbs::render('validarMatriculas'))
 @section('content')
 
 <div class="card">
@@ -62,7 +62,7 @@
                     function obtenerCohortes(id){
                         var fila;
                         $.blockUI({message:'<h1>Espere por favor.!</h1>'});
-                        $.post( "{{ route('obtenerCohortesMaestriaValidarRegistro') }}", { maestria: id })
+                        $.post( "{{ route('obtenerCohortesMaestriaValidarMatricula') }}", { maestria: id })
                         .done(function( data ) {
                         if((data.length)>0){
                             $('#cohortes').html('');
@@ -92,13 +92,13 @@
                     }
 
                     function obtenerRegistros(cohorte){
-                        $( "#cargarRegistro" ).load('{{ route("obtenerRegistroPorCohorteValidarRegistro", ":cohorte") }}'.replace(':cohorte', cohorte));
+                        $( "#cargarRegistro" ).load('{{ route("obtenerAdmisionesPorCohorteValidarRegistro", ":cohorte") }}'.replace(':cohorte', cohorte));
                     }
 
 
                     function validar(arg){
                         $.confirm({
-                            title: 'Validar registro de:',
+                            title: 'Validar matrícula de:',
                             theme: 'modern',
                             type:'blue',
                             icon:'fas fa-clipboard-check',
@@ -139,10 +139,10 @@
 
                     function enviarFactura(reg,factura){
                         $.blockUI({ message: '<h1>  <i class="fas fa-circle-notch fa-spin"></i> Por favor espera, sólo un momento...</h1>' });
-                        $.post( "{{ route('guardarValidarRegistro') }}", { registro: reg,factura:factura })
+                        $.post( "{{ route('guardarValidarMatricula') }}", { admision: reg,factura:factura })
                         .done(function( data ) {
                             if(data.success){
-                                $('#tesoreria-registro-table').DataTable().ajax.reload(); 
+                                $('#validarmatricula-table').DataTable().ajax.reload(); 
                                 $.notify(data.success, "success");
                             }
                             if(data.info){
@@ -185,7 +185,7 @@
 @push('scriptsFooter')
 <script>
     
-    $('#menuValidarRegistro').addClass('active');
+    $('#menuValidarMatricula').addClass('active');
 </script>
 @endpush
 

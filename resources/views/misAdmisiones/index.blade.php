@@ -1,5 +1,5 @@
 @extends('layouts.app',['title'=>'Mis admisiones'])
-@section('breadcrumbs', Breadcrumbs::render('misInscripciones'))
+@section('breadcrumbs', Breadcrumbs::render('misAdmisiones'))
 @section('content')
 
     @if (count($admisiones)>0)

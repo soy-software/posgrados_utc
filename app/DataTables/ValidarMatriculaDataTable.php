@@ -1,15 +1,15 @@
 <?php
 
-namespace App\DataTables\Tesoreria;
+namespace App\DataTables;
 
-use App\Models\Registro;
+use App\Models\Admision;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class RegistroDataTable extends DataTable
+class ValidarMatriculaDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -20,54 +20,60 @@ class RegistroDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables()
+            
             ->eloquent($query)
-            ->editColumn('created_at',function($reg){
-                return $reg->created_at.' '.$reg->created_at->diffForHumans();
+            ->editColumn('inscripcion_id',function($adm){
+                return $adm->user->identificacion;
             })
-            ->editColumn('estado',function($reg){
-                return view('validarRegistros.estado',['reg'=>$reg])->render();
+            ->filterColumn('inscripcion_id',function($query, $keyword){
+                $query->whereHas('user', function($query) use ($keyword) {
+                    $query->whereRaw("identificacion like ?", ["%{$keyword}%"]);
+                });            
             })
-            ->editColumn('user_id',function($reg){
-                return $reg->user->apellidos_nombres;
+            ->editColumn('user_id',function($adm){
+                return $adm->user->apellidos_nombres;
             })
             ->filterColumn('user_id',function($query, $keyword){
                 $query->whereHas('user', function($query) use ($keyword) {
                     $query->whereRaw("concat(primer_apellido,' ',segundo_apellido,' ',primer_nombre,' ',segundo_nombre) like ?", ["%{$keyword}%"]);
                 });            
             })
-            ->editColumn('cohorte_id',function($reg){
-                return $reg->user->email;
+            ->editColumn('cohorte_id',function($adm){
+                return $adm->user->email;
             })
             ->filterColumn('cohorte_id',function($query, $keyword){
                 $query->whereHas('user', function($query) use ($keyword) {
                     $query->whereRaw("email like ?", ["%{$keyword}%"]);
                 });            
             })
-            ->filterColumn('updated_at',function($query, $keyword){
-                $query->whereHas('user', function($query) use ($keyword) {
-                    $query->whereRaw("identificacion like ?", ["%{$keyword}%"]);
-                });            
+            ->editColumn('estado',function($adm){
+                if($adm->estado=='Aprobado'){
+                    return '<span class="badge badge-pill badge-success">'.$adm->estado.'</span>';
+                }else{
+                    return '<span class="badge badge-pill badge-danger">'.$adm->estado.'</span>';
+                }
+                
             })
-            ->editColumn('updated_at',function($reg){
-                return $reg->user->identificacion;
+            ->editColumn('estado_factura',function($adm){
+                if($adm->estado_factura=='Validado'){
+                    return '<span class="badge badge-pill badge-success">'.$adm->estado_factura.'</span>';
+                }else{
+                    return '<span class="badge badge-pill badge-danger">'.$adm->estado_factura.'</span>';
+                }
             })
-            ->editColumn('foto',function($reg){
-                return view('validarRegistros.foto',['reg'=>$reg])->render();
+            ->addColumn('action', function($admi){
+                return view('validarMatriculas.accion',['admi'=>$admi]);
             })
-            ->addColumn('action', function($reg){
-                return view('validarRegistros.accion',['reg'=>$reg])->render();
-            })
-            ->rawColumns(['foto','action','estado']);
-            
+            ->rawColumns(['action','estado','estado_factura']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Tesoreria/Registro $model
+     * @param \App\ValidarMatricula $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Registro $model)
+    public function query(Admision $model)
     {
         return $model->newQuery()->where('cohorte_id',$this->idCohorte);
     }
@@ -80,9 +86,10 @@ class RegistroDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('tesoreria-registro-table')
+                    ->setTableId('validarmatricula-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
+                    ->dom('Bfrtip')
                     ->parameters($this->getBuilderParameters());
     }
 
@@ -98,18 +105,14 @@ class RegistroDataTable extends DataTable
                   ->exportable(false)
                   ->printable(false)
                   ->width(60)
-                  ->searchable(false)
-                  ->title('Acción')
                   ->addClass('text-center'),
-            Column::make('updated_at')->title('Identificación'),
+            Column::make('inscripcion_id')->title('Identificación'),
             Column::make('user_id')->title('Postulante'),
             Column::make('cohorte_id')->title('Email'),
-            Column::make('factura')->title('Factura'),
-            Column::make('estado')->title('Estado factura'),
-            Column::make('valor')->title('Valor'),
-            Column::make('foto')->title('Comprobante')->searchable(false),
-            Column::make('created_at')->title('Fecha de registro'),
-            
+            Column::make('estado')->title('Estado admisión'),
+            Column::make('estado_factura')->title('Estado factura'),
+            Column::make('factura')->title('Número de factura'),
+            Column::make('valor_factura')->title('Valor matrícula'),
         ];
     }
 
@@ -120,6 +123,6 @@ class RegistroDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Tesoreria_Registro_' . date('YmdHis');
+        return 'ValidarMatricula_' . date('YmdHis');
     }
 }

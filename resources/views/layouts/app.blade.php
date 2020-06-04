@@ -52,7 +52,7 @@
 			</a>
 		</div>
 
-		<div class="d-md-none">
+		<div class="d-md-none" id="botonPerfil">
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
 				<i class="icon-tree5"></i>
 			</button>

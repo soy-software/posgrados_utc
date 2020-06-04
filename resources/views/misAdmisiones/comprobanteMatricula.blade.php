@@ -1,5 +1,5 @@
 @extends('layouts.app',['title'=>'Subir comprobante de matrícula'])
-{{-- @section('breadcrumbs', Breadcrumbs::render('subirComprobanteRegistro',$registro)) --}}
+@section('breadcrumbs', Breadcrumbs::render('subirComprobanteParaMatricula',$admision))
 @section('content')
 <div class="card">
     <div class="card-header">

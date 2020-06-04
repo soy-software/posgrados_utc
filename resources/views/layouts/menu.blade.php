@@ -139,6 +139,14 @@
                     </li>
                 @endcan
 
+                @can('Validar matrícula')
+                    <li class="nav-item">
+                        <a href="{{ route('validarMatriculas') }}" class="nav-link" id="menuValidarMatricula">
+                            <i class="fas fa-calendar-check"></i> <span>Validar matrículas</span>
+                        </a>
+                    </li>
+                @endcan
+
 
                 @if (count(Auth::user()->cohortesCoordinador)>0)
                     <li class="nav-item">
