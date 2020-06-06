@@ -34,7 +34,7 @@ class CohortesDataTable extends DataTable
      */
     public function query(Cohorte $model)
     {
-        return $model->newQuery()->where('maestria_id',$this->idMaestria);
+        return $model->newQuery()->where('maestria_id',$this->idMaestria)->orderBy('numero','desc');
     }
 
     /**

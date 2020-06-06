@@ -36,6 +36,13 @@ Breadcrumbs::for('permisos', function ($trail,$rol) {
     $trail->push('Permisos en '.$rol->name, route('permisos',$rol->id));
 });
 
+// importar datos de excel
+Breadcrumbs::for('importarDatosExcel', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Importar datos de excel', route('importarDatosExcel'));
+});
+
+
 // usuarios
 Breadcrumbs::for('usuarios', function ($trail) {
     $trail->parent('home');

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\RolesDataTable;
+use App\Imports\DatosExcel;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-
+use Maatwebsite\Excel\Facades\Excel;
 class Roles extends Controller
 {
     public function __construct()
@@ -62,5 +63,17 @@ class Roles extends Controller
             $request->session()->flash('error','No se puede eliminar rol');
         }
         return redirect()->route('roles');
+    }
+
+    public function importarDatosExcel()
+    {
+        return view('roles.importarDatosExcel');
+    }
+    public function guargarImportacionDatosExcel(Request $request)
+    {
+        
+        Excel::import(new DatosExcel, $request->file('archivo'));
+        $request->session()->flash('success','Datos excel importado exitosamente');
+        return redirect()->route('importarDatosExcel');
     }
 }

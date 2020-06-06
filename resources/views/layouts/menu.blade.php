@@ -163,6 +163,12 @@
                         <i class="fas fa-user-lock"></i> <span>Roles y permisos</span>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('importarDatosExcel') }}" class="nav-link" id="menuImportarDatosExcel">
+                        <i class="fas fa-user-lock"></i> <span>Importar datos excel</span>
+                    </a>
+                </li>
                 @endrole
                 
 

@@ -17,7 +17,7 @@ class BancoPreguntas extends Controller
     public function index($idCohorte)
     {
         $cohorte=Cohorte::findOrFail($idCohorte);
-        if(!count($cohorte->bancoPreguntas)>0){
+        if($cohorte->bancoPreguntas->count()<=0){
             for ($i=0; $i <=10 ; $i++) { 
                 $bp=new BancoPregunta();
                 $bp->pregunta='Pregunta '.$i;

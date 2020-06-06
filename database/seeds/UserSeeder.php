@@ -3,6 +3,7 @@
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
@@ -14,13 +15,13 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $email='david.criollo14@gmail.com';
+        $email=env('EMAIL_ADMIN', '');
         $user=User::where('email',$email)->first();
         if(!$user){
             $user=new User();
-            $user->name = 'vilmer';
+            $user->name = 'Admin';
             $user->email = $email;
-            $user->password = Hash::make('12345678');
+            $user->password = Hash::make(env('EMAIL_ADMIN', ''));
             $user->email_verified_at=Carbon::now();
             $user->save();
         }

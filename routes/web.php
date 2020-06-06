@@ -53,6 +53,11 @@ Route::middleware(['verified', 'auth','informacion_user'])->group(function () {
     Route::get('/permisos/{rol}', 'Roles@permisos')->name('permisos');
     Route::post('/asignar-permisos-rol', 'Roles@sincronizar')->name('sincronizarPermiso');
     Route::get('/eliminar-rol/{rol}', 'Roles@eliminar')->name('eliminarRol');
+    // importar datos excel
+    Route::get('/importar-datos-excel', 'Roles@importarDatosExcel')->name('importarDatosExcel');
+    Route::post('/guardar-importar-datos-excel', 'Roles@guargarImportacionDatosExcel')->name('guargarImportacionDatosExcel');
+    
+    
     
     
 

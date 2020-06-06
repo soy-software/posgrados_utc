@@ -26,7 +26,7 @@ class ValidarMatriculas extends Controller
     {
         $request->validate(['maestria'=>'required']);
         $maestria=Maestria::findOrFail($request->maestria);
-        return response()->json($maestria->cohortes);
+        return response()->json($maestria->cohortes()->orderBy('numero','desc')->get());
     }
 
     public function obtenerAdmisionesCohorte(ValidarMatriculaDataTable  $dataTable, $idCohorte)

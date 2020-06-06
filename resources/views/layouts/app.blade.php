@@ -369,9 +369,15 @@
 					</span>
 
 					<ul class="navbar-nav ml-lg-auto">
-						<li class="nav-item"><a href="#" class="navbar-nav-link"><i class="icon-lifebuoy mr-2"></i> Soporte</a></li>
-						<li class="nav-item"><a href="#" class="navbar-nav-link"><i class="icon-file-text2 mr-2"></i> Documentación</a></li>
-						<li class="nav-item"><a href="#" class="navbar-nav-link font-weight-semibold"><span class="text-pink-400"><i class="icon-cart2 mr-2"></i> Comprar</span></a></li>
+						<li class="nav-item">
+							<a href="https://www.facebook.com/posgradoutc/" target="_blank" data-toggle="tooltip" data-placement="top" title="Facebook" class="navbar-nav-link"><i class="fab fa-facebook-f text-primary"></i></a>
+						</li>
+						<li class="nav-item">
+							<a href="https://www.youtube.com/channel/UCJ9bM-HIXmb1mUUBsDVR-ig" target="_blank" data-toggle="tooltip" data-placement="top" title="YouTube" class="navbar-nav-link"><i class="fab fa-youtube text-danger"></i></a>
+						</li>
+						<li class="nav-item">
+							<a href="http://avirtuales.utc.edu.ec/moodleposgrados/" target="_blank" data-toggle="tooltip" data-placement="top" title="Moodle" class="navbar-nav-link font-weight-semibold"><i class="fab fa-maxcdn text-warning"></i></a>
+						</li>
 					</ul>
 				</div>
 			</div>
