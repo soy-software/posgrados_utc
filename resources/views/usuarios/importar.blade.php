@@ -10,7 +10,7 @@
         <div class="card-header">
 
             <p><strong class="text-warning">Advertencia:</strong> El archvio excel debe regirse <strong>extrictamente</strong> al formato presentado a continuación.</p>
-            <p>Por favor, elimine la primera fila del encabezado, cuando vaya subir la información</p>
+            <p class="text-info">La primera fila no se subira</p>
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
