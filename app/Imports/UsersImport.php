@@ -5,10 +5,15 @@ namespace App\Imports;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 use Spatie\Permission\Models\Role;
 
-class UsersImport implements ToModel
+class UsersImport implements ToModel, WithStartRow
 {
+    public function startRow(): int
+    {
+        return 2;
+    }
     /**
     * @param array $row
     *
