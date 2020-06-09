@@ -161,6 +161,7 @@ Route::middleware(['verified', 'auth','informacion_user'])->group(function () {
     Route::get('/inscripcion-ver/{id}', 'Inscripciones@ver')->name('verInscripcion');
     Route::get('/formulario-inscripcion/{id}', 'Inscripciones@formularioInscripcion')->name('formularioInscripcion');
     Route::post('/inscribir-actualizar', 'Inscripciones@actualizar')->name('actualizarInscripcion');
+    Route::get('/listado-inscripciones-pdf/{cohorte}', 'Inscripciones@pdf')->name('pdfInscripciones');
 
     // @deivid
     Route::get('/validar-matriculas', 'ValidarMatriculas@index')->name('validarMatriculas');

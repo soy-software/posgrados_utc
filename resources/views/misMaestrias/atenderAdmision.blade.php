@@ -135,7 +135,7 @@
                         @enderror
                         <div class="custom-control custom-checkbox mt-1">
                             <input type="checkbox" class="custom-control-input" id="defaultUnchecked" name="notificar">
-                            <label class="custom-control-label" for="defaultUnchecked">Enviar notificación subir comprbante para matrícula a: <i>{{ $admi->user->email }}</i></label>
+                            <label class="custom-control-label" for="defaultUnchecked">Enviar notificación subir comprobante para matrícula a: <i>{{ $admi->user->email }}</i></label>
                         </div>
                     </div>
                 </div>

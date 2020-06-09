@@ -26,7 +26,7 @@
      </style>
 </head>
 <body>
-    <h1 style="text-align: center;" >HOJA DE VIDA</h1>
+    <h1 style="text-align: center;" >Formulario de inscripción</h1>
     <hr>
     <p style="text-align: right">Fecha: {{ date('d-m-Y') }}</p>
     

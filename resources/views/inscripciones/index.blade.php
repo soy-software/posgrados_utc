@@ -79,7 +79,7 @@
                             $('#cohortes').append(fila);
                             var cohorte=$("#cohortes option:selected").val();
                             var url='{{ route("listadoInscripciones",":cohorte") }}'.replace(':cohorte',cohorte);
-                            $('#cargarRegistro').append('<a href="'+url+'" class="btn btn-primary">LISTADO DE REGISTRO</a>');
+                            $('#cargarRegistro').append('<a href="'+url+'" class="btn btn-primary">LISTADO DE INSCRITOS </a>');
                             obtenerRegistros(cohorte);
 
                         }else{

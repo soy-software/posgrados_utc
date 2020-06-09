@@ -3,7 +3,11 @@
 @section('headerElements')
 
     <div class="breadcrumb justify-content-center">
-        <a data-toggle="modal" data-target="#centralModalSm" role="button" type="button" class="breadcrumb-elements-item">
+      <a href="{{ route('pdfInscripciones',$cohorte->id) }}" class="breadcrumb-elements-item">
+        <i class="fas fa-file-pdf"></i> 
+          Descargar PDF
+      </a>  
+      <a data-toggle="modal" data-target="#centralModalSm" role="button" type="button" class="breadcrumb-elements-item">
             <i class="fas fa-plus"></i>
             Nueva inscripción
         </a>

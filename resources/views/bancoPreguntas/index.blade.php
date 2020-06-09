@@ -19,6 +19,7 @@
                 @enderror
             </div>
             <button class="btn btn-primary" type="submit">Guardar</button>
+            <p class="text-warning">Si no aparace las preguntas, por favor vuelva a <a href="{{ route('bancoPreguntas',$cohorte->id) }}">recargar la página.</a></p>
         </form>
         @if (count($bancoPreguntas)>0)
         <form action="{{ route('actualizarBancoPregunta') }}" method="POST">

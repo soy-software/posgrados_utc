@@ -164,5 +164,14 @@ class Inscripciones extends Controller
         
     }
 
-    
+    public function pdf($idCohorte)
+    {
+        $cohorte=Cohorte::findOrFail($idCohorte);
+        $data = array('inscripciones' => $cohorte->inscripciones );
+        $pdf = PDF::loadView('inscripciones.pdf', $data)
+            ->setOption('header-html', view('estaticas.header'))
+            ->setOption('footer-html', view('estaticas.footer'))
+            ->setOption('margin-bottom', 10);
+        return $pdf->download('Listado de inscripciones.pdf');
+    }
 }
