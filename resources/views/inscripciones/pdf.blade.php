@@ -26,7 +26,7 @@
      </style>
 </head>
 <body>
-    <h1 style="text-align: center;" >Listado de inscripciones</h1>
+    <h1 style="text-align: center;" >Listado de inscripciones P-PI04</h1>
     <hr>
     @if (count($inscripciones)>0)
         <table style="width: 100%">

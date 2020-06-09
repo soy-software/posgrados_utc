@@ -26,7 +26,7 @@
      </style>
 </head>
 <body>
-    <h1 style="text-align: center;" >FORMULARIO DE INSCRIPCIÓN</h1>
+    <h1 style="text-align: center;" >FORMULARIO DE INSCRIPCIÓN P-PI04</h1>
     <hr>
     <p style="text-align: right">Fecha: {{ $inscri->created_at }}</p>
     @php($user=$inscri->user)

@@ -27,7 +27,7 @@
 </head>
 <body>
   
-    <h1 style="text-align: center;" >Formulario de registro</h1>
+    <h1 style="text-align: center;" >Formulario de registro P-PI01</h1>
     <hr>
     <p style="text-align: right">Fecha: {{ $registro->created_at }}</p>
     <p style="text-align: right">Número de registro: {{ $registro->id }}</p>
